@@ -1,0 +1,18 @@
+rules:
+  - id: iso_aws_access_key
+    framework: iso27001
+    control_id: A.9
+    severity: critical
+    pattern: 'AKIA[0-9A-Z]{16}'
+    file_globs: ['*']
+    why_it_matters: 'Exposed AWS access keys can lead to unauthorized access to cloud resources and data breaches'
+    remediation_steps: 'Immediately rotate the exposed key, use AWS IAM roles instead of hard-coded keys, implement secret management'
+    
+  - id: iso_pii_email
+    framework: iso27001
+    control_id: A.8
+    severity: medium
+    pattern: '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    file_globs: ['*.py', '*.js', '*.java', '*.cs', '*.php', '*.rb']
+    why_it_matters: 'Email addresses are personal data that must be properly protected and processed according to data classification policies'
+    remediation_steps: 'Implement data masking, encryption for email addresses, and ensure proper access controls'

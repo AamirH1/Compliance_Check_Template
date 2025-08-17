@@ -1,0 +1,21 @@
+SECURITY POLICY
+
+1. ACCESS CONTROL
+All employees must use strong passwords and multi-factor authentication.
+
+2. NETWORK SECURITY  
+Firewalls and intrusion detection systems are deployed.
+
+3. DATA CLASSIFICATION
+Data is classified as public, internal, confidential, or restricted.
+
+4. PHYSICAL SECURITY
+Server rooms are secured with keycard access.
+
+5. EMPLOYEE TRAINING
+Security awareness training is provided annually.
+
+6. MONITORING
+Security events are monitored and logged.
+
+Contact: security@company.com

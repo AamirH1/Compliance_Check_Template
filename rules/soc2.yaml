@@ -1,0 +1,18 @@
+rules:
+  - id: soc2_api_key_generic
+    framework: soc2
+    control_id: CC 6.1
+    severity: high
+    pattern: 'api[_-]?key'
+    file_globs: ['*']
+    why_it_matters: 'Exposed API keys can lead to unauthorized access violating logical access controls'
+    remediation_steps: 'Store API keys in secure configuration management, rotate exposed keys, implement key rotation policies'
+    
+  - id: soc2_database_password
+    framework: soc2
+    control_id: CC 6.1
+    severity: high
+    pattern: 'password.*[:=]'
+    file_globs: ['*.yml', '*.yaml', '*.json']
+    why_it_matters: 'Database passwords in source code violate logical access control requirements'
+    remediation_steps: 'Use environment variables, encrypted configuration, or dedicated secret management'
