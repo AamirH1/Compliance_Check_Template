@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Scan Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { border-bottom: 3px solid #2c3e50; padding-bottom: 20px; margin-bottom: 30px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .summary-card { background: #ecf0f1; padding: 20px; border-radius: 6px; text-align: center; }
+        .summary-card h3 { margin: 0 0 10px 0; color: #2c3e50; }
+        .summary-card .number { font-size: 2em; font-weight: bold; color: #3498db; }
+        .severity-critical { color: #e74c3c; }
+        .severity-high { color: #f39c12; }
+        .severity-medium { color: #f1c40f; }
+        .severity-low { color: #27ae60; }
+        .findings { margin-top: 30px; }
+        .finding { border: 1px solid #ddd; border-radius: 6px; margin-bottom: 20px; overflow: hidden; }
+        .finding-header { padding: 15px; background: #34495e; color: white; cursor: pointer; }
+        .finding-header:hover { background: #2c3e50; }
+        .finding-content { padding: 20px; display: none; }
+        .finding-content.active { display: block; }
+        .evidence-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 15px; margin: 10px 0; font-family: monospace; white-space: pre-wrap; }
+        .recommendations { background: #e8f5e8; border-left: 4px solid #27ae60; padding: 20px; margin: 20px 0; }
+        .top-risks { background: #ffe6e6; border-left: 4px solid #e74c3c; padding: 20px; margin: 20px 0; }
+    </style>
+    <script>
+        function toggleFinding(id) {
+            const content = document.getElementById('content-' + id);
+            const header = document.getElementById('header-' + id);
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                header.innerHTML = header.innerHTML.replace('▼', '▶');
+            } else {
+                content.classList.add('active');
+                header.innerHTML = header.innerHTML.replace('▶', '▼');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Compliance & Security Scan Report</h1>
+            <p><strong>Scan ID:</strong> d5e8502b-b860-4f00-a7e8-47af414958a2</p>
+            <p><strong>Timestamp:</strong> 2025-08-18 00:01:16</p>
+            <p><strong>Paths Scanned:</strong> samples/</p>
+        </div>
+        
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Files Scanned</h3>
+                <div class="number">5</div>
+            </div>
+            <div class="summary-card">
+                <h3>Total Findings</h3>
+                <div class="number">22</div>
+            </div>
+            <div class="summary-card">
+                <h3>Critical Issues</h3>
+                <div class="number severity-critical">1</div>
+            </div>
+            <div class="summary-card">
+                <h3>High Priority</h3>
+                <div class="number severity-high">3</div>
+            </div>
+            <div class="summary-card">
+                <h3>Scan Duration</h3>
+                <div class="number">0.00s</div>
+            </div>
+        </div>
+        
+        
+        <div class="recommendations">
+            <h2>🎯 Priority Recommendations</h2>
+            <ul>
+                
+                <li>🚨 Address 1 critical security issues immediately</li>
+                
+                <li>⚠️  Review and remediate 3 high-severity findings</li>
+                
+            </ul>
+        </div>
+        
+        
+        
+        <div class="top-risks">
+            <h2>🚨 Top Security Risks</h2>
+            <ul>
+                
+                <li><strong>samples/code/app.py</strong>: Exposed AWS access keys can lead to unauthorized access to cloud resources and data breaches</li>
+                
+                <li><strong>samples/code/config.yml</strong>: Exposed API keys can lead to unauthorized access violating logical access controls</li>
+                
+                <li><strong>samples/code/config.yml</strong>: Database passwords in source code violate logical access control requirements</li>
+                
+                <li><strong>samples/code/config.yml</strong>: Disabled encryption exposes data in transit to interception</li>
+                
+            </ul>
+        </div>
+        
+        
+        <div class="findings">
+            <h2>🔍 Detailed Findings (22)</h2>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-1" onclick="toggleFinding(1)">
+                    ▶ <span class="severity-Severity.CRITICAL">CRITICAL</span>
+                    - ISO27001 A.9
+                    - samples/code/app.py
+                    
+                </div>
+                <div class="finding-content" id="content-1">
+                    <p><strong>Rule:</strong> iso_aws_access_key</p>
+                    <p><strong>Line Range:</strong> 10-10</p>
+                    <p><strong>Why It Matters:</strong> Exposed AWS access keys can lead to unauthorized access to cloud resources and data breaches</p>
+                    <p><strong>Remediation:</strong> Immediately rotate the exposed key, use AWS IAM roles instead of hard-coded keys, implement secret management</p>
+                    <p><strong>Mapping Confidence:</strong> high</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        
+# Bad: AWS credentials in code  
+AWS_ACCESS_KEY = "****[REDACTED]****"
+AWS_SECRET_KEY = "****[REDACTED]****"
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-2" onclick="toggleFinding(2)">
+                    ▶ <span class="severity-Severity.HIGH">HIGH</span>
+                    - SOC2 CC 6.1
+                    - samples/code/config.yml
+                    
+                </div>
+                <div class="finding-content" id="content-2">
+                    <p><strong>Rule:</strong> soc2_api_key_generic</p>
+                    <p><strong>Line Range:</strong> 8-8</p>
+                    <p><strong>Why It Matters:</strong> Exposed API keys can lead to unauthorized access violating logical access controls</p>
+                    <p><strong>Remediation:</strong> Store API keys in secure configuration management, rotate exposed keys, implement key rotation policies</p>
+                    <p><strong>Mapping Confidence:</strong> high</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                          ssl: false
+
+api_keys:
+  openai_key: "sk-****[REDACTED]****"
+  stripe_key: "sk_test_51234567890abcdef1234567890abcdef"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-3" onclick="toggleFinding(3)">
+                    ▶ <span class="severity-Severity.HIGH">HIGH</span>
+                    - SOC2 CC 6.1
+                    - samples/code/config.yml
+                    
+                </div>
+                <div class="finding-content" id="content-3">
+                    <p><strong>Rule:</strong> soc2_database_password</p>
+                    <p><strong>Line Range:</strong> 5-5</p>
+                    <p><strong>Why It Matters:</strong> Database passwords in source code violate logical access control requirements</p>
+                    <p><strong>Remediation:</strong> Use environment variables, encrypted configuration, or dedicated secret management</p>
+                    <p><strong>Mapping Confidence:</strong> high</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                          port: 5432
+  username: admin
+  password: plaintext_password_123
+  ssl: false
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-4" onclick="toggleFinding(4)">
+                    ▶ <span class="severity-Severity.HIGH">HIGH</span>
+                    - ISO27001 A.13
+                    - samples/code/config.yml
+                    
+                </div>
+                <div class="finding-content" id="content-4">
+                    <p><strong>Rule:</strong> disabled_tls</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Disabled encryption exposes data in transit to interception</p>
+                    <p><strong>Remediation:</strong> Enable TLS/SSL and certificate verification</p>
+                    <p><strong>Mapping Confidence:</strong> high</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        TLS/SSL disabled in configuration
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-5" onclick="toggleFinding(5)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.8
+                    - samples/code/app.py
+                    
+                </div>
+                <div class="finding-content" id="content-5">
+                    <p><strong>Rule:</strong> iso_pii_email</p>
+                    <p><strong>Line Range:</strong> 22-22</p>
+                    <p><strong>Why It Matters:</strong> Email addresses are personal data that must be properly protected and processed according to data classification policies</p>
+                    <p><strong>Remediation:</strong> Implement data masking, encryption for email addresses, and ensure proper access controls</p>
+                    <p><strong>Mapping Confidence:</strong> high</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                                    "id": 1,
+            "name": "John Doe", 
+            "email": "****@****.***",
+            "phone": "***-***-****",
+            "ssn": "123-45-6789",
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-6" onclick="toggleFinding(6)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.8
+                    - samples/code/app.py
+                    
+                </div>
+                <div class="finding-content" id="content-6">
+                    <p><strong>Rule:</strong> iso_pii_email</p>
+                    <p><strong>Line Range:</strong> 30-30</p>
+                    <p><strong>Why It Matters:</strong> Email addresses are personal data that must be properly protected and processed according to data classification policies</p>
+                    <p><strong>Remediation:</strong> Implement data masking, encryption for email addresses, and ensure proper access controls</p>
+                    <p><strong>Mapping Confidence:</strong> high</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                                    "id": 2,
+            "name": "Jane Smith",
+            "email": "****@****.***", 
+            "phone": "***-***-****",
+            "dob": "03/15/1985"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-7" onclick="toggleFinding(7)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 5
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-7">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_5</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data retention requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data retention, retention period in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data retention, retention period
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-8" onclick="toggleFinding(8)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 12
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-8">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_12</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data subject rights requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data subject rights, individual rights in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data subject rights, individual rights
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-9" onclick="toggleFinding(9)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 35
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-9">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_35</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data protection impact requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data protection impact, DPIA in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data protection impact, DPIA
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-10" onclick="toggleFinding(10)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 33
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-10">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_33</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data breach requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data breach, incident response in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data breach, incident response
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-11" onclick="toggleFinding(11)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.9
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-11">
+                    <p><strong>Rule:</strong> doc_gap_iso27001_A_9</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address access control requirements for iso27001 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering access control, access management in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: access control, access management
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-12" onclick="toggleFinding(12)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.16
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-12">
+                    <p><strong>Rule:</strong> doc_gap_iso27001_A_16</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address incident response requirements for iso27001 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering incident response, incident management in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: incident response, incident management
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-13" onclick="toggleFinding(13)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.10
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-13">
+                    <p><strong>Rule:</strong> doc_gap_iso27001_A_10</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address encryption requirements for iso27001 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering encryption, cryptographic in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: encryption, cryptographic
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-14" onclick="toggleFinding(14)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - SOC2 CC 6.1
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-14">
+                    <p><strong>Rule:</strong> doc_gap_soc2_CC_6_1</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address access control requirements for soc2 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering access control, logical access in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: access control, logical access
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-15" onclick="toggleFinding(15)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - SOC2 CC 7.1
+                    - samples/docs/privacy-policy.md
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-15">
+                    <p><strong>Rule:</strong> doc_gap_soc2_CC_7_1</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address monitoring requirements for soc2 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering monitoring, system monitoring in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: monitoring, system monitoring
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-16" onclick="toggleFinding(16)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 5
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-16">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_5</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data retention requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data retention, retention period in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data retention, retention period
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-17" onclick="toggleFinding(17)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 12
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-17">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_12</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data subject rights requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data subject rights, individual rights in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data subject rights, individual rights
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-18" onclick="toggleFinding(18)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 35
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-18">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_35</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data protection impact requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data protection impact, DPIA in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data protection impact, DPIA
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-19" onclick="toggleFinding(19)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - GDPR Article 33
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-19">
+                    <p><strong>Rule:</strong> doc_gap_gdpr_Article_33</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address data breach requirements for gdpr compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering data breach, incident response in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: data breach, incident response
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-20" onclick="toggleFinding(20)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.16
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-20">
+                    <p><strong>Rule:</strong> doc_gap_iso27001_A_16</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address incident response requirements for iso27001 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering incident response, incident management in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: incident response, incident management
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-21" onclick="toggleFinding(21)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - ISO27001 A.10
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-21">
+                    <p><strong>Rule:</strong> doc_gap_iso27001_A_10</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address encryption requirements for iso27001 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering encryption, cryptographic in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: encryption, cryptographic
+                    </div>
+                </div>
+            </div>
+            
+            <div class="finding">
+                <div class="finding-header" id="header-22" onclick="toggleFinding(22)">
+                    ▶ <span class="severity-Severity.MEDIUM">MEDIUM</span>
+                    - SOC2 CC 6.7
+                    - samples/docs/security-policy.txt
+                    <span style="color: #f39c12;"> [NEEDS REVIEW]</span>
+                </div>
+                <div class="finding-content" id="content-22">
+                    <p><strong>Rule:</strong> doc_gap_soc2_CC_6_7</p>
+                    <p><strong>Line Range:</strong> 1-end</p>
+                    <p><strong>Why It Matters:</strong> Policy documents should address encryption requirements for soc2 compliance</p>
+                    <p><strong>Remediation:</strong> Add a section covering encryption, data protection in the policy document</p>
+                    <p><strong>Mapping Confidence:</strong> medium</p>
+                    <div class="evidence-box">
+                        <strong>Evidence:</strong><br>
+                        Missing section: encryption, data protection
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #666;">
+            Generated by AI-Powered Compliance & Security Checker
+        </div>
+    </div>
+</body>
+</html>
+        
